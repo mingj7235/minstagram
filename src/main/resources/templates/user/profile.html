@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Mingstagram</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          rel="stylesheet">
+    <link href="/images/favicon.ico" rel="shortcut icon">
+    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/css/modal.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div th:replace="/include/nav.html :: fragment-nav"></div>
+<main id="profile">
+    <header class="profile__header">
+        <div class="avatar__container">
+            <form action="/user/profileUpload" id="frm_profile_img" method="post">
+                <input name="profileImage" style="display: none;" type="file"/>
+            </form>
+            <img id="profile_image" src="/images/avatar.jpg" style="cursor: pointer"/>
+        </div>
+        <div class="profile__info">
+            <div class="profile__title">
+                <!--                <h1 th:text="${user.getName()}"></h1>-->
+                <h1 th:text="${user.username}"></h1>
+                <input id="toUserId" th:value="${user.id}" type="hidden">
+                <div th:if="${owner.id ne user.id} ">
+                    <div id="follow_check">
+                        <div th:if="${followCheck eq 1}">
+                            <button class="profile_edit_btn" onClick="follow(false);">팔로잉</button>
+                        </div>
+                        <div th:unless="${followCheck eq 1}">
+                            <button class="profile_follow_btn" onClick="follow(true);">팔로우</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <a href="edit-profile.html">
+                    <button class="profile_edit_btn">Edit Profile</button>
+                </a> <i class="fa fa-cog fa-lg"></i>
+            </div>
+            <ul class="profile__stats">
+                <li class="profile__stat"><span class="profile__stat-number">313</span> posts</li>
+                <li class="profile__stat"><span class="profile__stat-number">4,444</span> followers</li>
+                <li class="profile__stat"><span class="profile__stat-number">44</span> following</li>
+            </ul>
+            <p class="profile__bio">
+                <span class="profile__fullname" th:text="${user.name}"></span>
+                <span th:text="${user.bio}"></span>
+                <a class="profile__link" th:href="${user.website}"></a>
+            </p>
+        </div>
+    </header>
+    <div class="profile__photo-grid">
+        <div class="profile__photo-row">
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="profile__photo-row">
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="profile__photo-row">
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+            <div class="profile__photo">
+                <a href="image-detail.html"> <img src="/images/feedPhoto.jpg">
+                    <div class="profile__photo-overlay">
+							<span class="profile__photo-stat"> <i class="fa fa-heart"></i> 504
+							</span> <span class="profile__photo-stat"> <i class="fa fa-comment"></i> 22
+							</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="profile__overlay">
+    <i class="fa fa-times"></i>
+    <div class="profile__overlay-container">
+        <a class="profile__overlay-link" href="#">Change password</a> <a class="profile__overlay-link"
+                                                                         href="#">Authorize Apps</a>
+        <a class="profile__overlay-link" href="#">Notifications</a>
+        <a class="profile__overlay-link" href="#" id="logout">Log Out</a> <a class="profile__overlay-link"
+                                                                             href="#"
+                                                                             id="cancel">Cancel</a>
+    </div>
+</div>
+
+<div th:replace="/include/footer.html :: fragment-footer"></div>
+
+<script src="/js/follow.js"></script>
+
+<script>
+    $(function () {
+        //이미지 클릭시 업로드창 실행
+        $('#profile_image').click(function () {
+            $("input[name='profileImage']").click();
+        })
+        //업로드 파일체인지가 됬을경우 실행되는 이벤트  form태그에 fileProfile은 hidden으로 넣어줌
+        $("input[name='profileImage']").change(function (e) {
+            $("#frm_profile_img").submit();
+        })
+    })
+</script>
+</body>
+
+</html>
