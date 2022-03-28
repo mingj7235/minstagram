@@ -2,6 +2,7 @@ package com.joshua.minstagram.domain.user.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.joshua.minstagram.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.DynamicUpdate;
@@ -17,7 +18,7 @@ import javax.persistence.Id;
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @DynamicUpdate
 @Entity
-public class User {
+public class User extends BaseTime {
 
     @Id
     @GeneratedValue
