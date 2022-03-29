@@ -1,6 +1,5 @@
 # Mingstagram
 
-
 [Backend]
 
 - Springboot 2.6.4
@@ -14,7 +13,13 @@
 
 - Thymeleaf
 
+[Infra]
+
+- AWS
+- Docker
+
 [도입 예정]
 
 - DB sub : QueryDSL
 - Frontend : React
+- Jenkins
