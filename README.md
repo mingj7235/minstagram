@@ -1,6 +1,6 @@
-# Mingstagram
+# Mingstagram 📸
 
-[Backend]
+### [ BACK-END 💻 ]
 
 - Springboot 2.6.4
 - Spring Data JPA
@@ -9,17 +9,17 @@
 - OAuth2 
 - Gradle
 
-[Frontend]
+### [ FRONT-END 🖼 ]
 
 - Thymeleaf
 
-[Infra]
+### [ INFRA 🔧 ]
 
 - AWS
 - Docker
 
-[도입 예정]
+###[ 도입 예정 ]
 
 - DB sub : QueryDSL
 - Frontend : React
-- Jenkins
+- Jenkins or Github action (CI/CD)
