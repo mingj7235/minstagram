@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -54,8 +55,23 @@ public class FollowController {
     }
 
     @GetMapping ("/follower/{id}")
-    public String followFollower (@PathVariable Long id) {
+    public String followFollower (@AuthenticationPrincipal MyUserDetail userDetail,
+                                  @PathVariable Long id,
+                                  Model model) {
 
+        List<Follow> followers = followRepository.findByToUserId(id);
+
+        List<Follow> principalFollows = followRepository.findByFromUserId(userDetail.getUser().getId());
+
+        for (Follow f1 : followers) {
+            for (Follow f2 : principalFollows) {
+                if (f1.getFromUser().getId() == f2.getToUser().getId()) {
+                    f1.setFollowState(true);
+                }
+            }
+        } //FIXME : logic 변경
+
+        model.addAttribute("followers", followers);
         return "follow/follow";
     }
 

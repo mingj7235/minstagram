@@ -24,7 +24,8 @@ public class Follow extends BaseTime {
     private Long id;
 
     @Transient
-    private boolean f4f; //맞팔 여부
+//    private boolean f4f; //맞팔 여부
+    private boolean followState;
 
     // 중간 테이블 생성
     // fromUser가 toUser를 following 함.
