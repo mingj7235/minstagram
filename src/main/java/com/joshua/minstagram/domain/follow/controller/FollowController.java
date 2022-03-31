@@ -65,7 +65,7 @@ public class FollowController {
 
         for (Follow f1 : followers) {
             for (Follow f2 : principalFollows) {
-                if (f1.getFromUser().getId() == f2.getToUser().getId()) {
+                if (f1.getFromUser().getId().equals(f2.getToUser().getId())) {
                     f1.setFollowState(true);
                 }
             }
