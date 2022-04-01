@@ -76,7 +76,21 @@ public class FollowController {
     }
 
     @GetMapping ("/follow/{id}")
-    public String followFollow (@PathVariable Long id) {
+    public String followFollow (@AuthenticationPrincipal MyUserDetail userDetail,
+                                @PathVariable Long id,
+                                Model model) {
+
+        List<Follow> follows = followRepository.findByFromUserId(id);
+
+        List<Follow> principalFollows = followRepository.findByFromUserId(userDetail.getUser().getId());
+
+        for (Follow f1 : follows) {
+            for (Follow f2 : principalFollows) {
+                if (f1.getToUser().getId() == f2.getToUser().getId()) {
+                    f1.setFollowState(true);
+                }
+            }
+        } //FIXME : logic 변경
 
         return "follow/follow";
     }
