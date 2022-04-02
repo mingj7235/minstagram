@@ -18,7 +18,12 @@
 - AWS
 - Docker
 
-###[ 도입 예정 ]
+### [ CD / CD ]
+
+- Github Action
+- Docker hub
+
+### [ 도입 예정 ]
 
 - DB sub : QueryDSL
 - Frontend : React
