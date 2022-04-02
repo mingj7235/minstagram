@@ -5,6 +5,12 @@ on:
     branches:
       - main
 
+env:
+  DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+  DOCKER_FILE: Dockerfile
+  DOCKER_REPO: joshuara7235/mingstagram
+  DOCKER_CONTAINER_NAME: mingstagram
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -22,3 +28,29 @@ jobs:
 
     - name: Gradle Build
       run: ./gradlew clean bootJar -x test
+
+      #################### DOCKER BUILD & PUSH ########################
+
+      # DOCKER_USERNAME, PASSWORD : 현재는 Joshua 계정으로 되어있음 후에 변경해야함
+      # Dockerfile, Hub 주소 변수빼기
+
+    - name: Docker Build & Push
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
+        docker build --build-arg DEPENDENCY=build/dependency -f ${{ env.DOCKER_FILE }} -t ${{ env.DOCKER_REPO }} . 
+        docker push ${{ env.DOCKER_REPO }}
+
+      ############################ CD ##############################
+
+    - name: Deployment
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.AWS_HOST }}
+        username: ubuntu
+        key: ${{ secrets.AWS_JOSHUA_UBUNTU_PRIVATE_KEY }} # AWS 접속 키인 CER private key value 를 넣었음 (joshua cer 사용)
+        envs: GITHUB_SHA
+        script: |
+          docker rmi -f ${{ env.DOCKER_REPO }}
+          docker rm -f ${{ env.DOCKER_CONTAINER_NAME }}
+          docker pull ${{ env.DOCKER_REPO }}
+          docker run -p 8081:8080 -d --name ${{ env.DOCKER_CONTAINER_NAME }} ${{ env.DOCKER_REPO }}

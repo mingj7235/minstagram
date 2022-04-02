@@ -3,10 +3,10 @@ server:
 
 spring:
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3307/mingstagram
-    username: ming
-    password: ming
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}
+    username: ${MYSQL_USERNAME}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
     open-in-view: false
@@ -30,5 +30,3 @@ spring:
       name: test
       password: 1234
 
-file:
-  path: /Users/joshua/Desktop/Toy/Mingstagram/src/main/resources/upload/
