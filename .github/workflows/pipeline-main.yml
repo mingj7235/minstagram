@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  DOCKER_HOST: ${{ secrets.DOCKER_HOST }}
+  AWS_HOST: ${{ secrets.AWS_HOST }}
   DOCKER_FILE: Dockerfile
   DOCKER_REPO: joshuara7235/mingstagram
   DOCKER_CONTAINER_NAME: mingstagram
