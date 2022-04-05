@@ -12,12 +12,9 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: update
-      #      naming:
-      #        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
     show-sql: true
     properties:
-      #      hibernate.enable_lazy_load_no_trans: true
       hibernate.format_sql: true
 
   servlet:
