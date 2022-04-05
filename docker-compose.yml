@@ -1,0 +1,36 @@
+version: "3.3"
+
+services:
+  web:
+    image: ghcr.io/mingj7235/minstagram/main:latest
+    container_name: mingstagram
+    networks:
+      - bridge
+    env_file:
+      - mingstagram.env
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:6.2.5-alpine
+    container_name: workup-redis
+    networks:
+      - bridge
+    environment:
+      TZ: UTC
+    volumes:
+      - redis:/data
+    restart: always
+    ports:
+      - "6379:6379"
+    command:
+      - --requirepass password
+      
+volumes:
+  redis:
+
+networks:
+  bridge:
+    driver: bridge

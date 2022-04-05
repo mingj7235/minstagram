@@ -10,6 +10,7 @@ env:
   GITHUB_USER_NAME: ${{ secrets.USER_NAME }}
   DOCKER_FILE_PATH: ./Dockerfile
   DOCKER_CONTAINER_NAME: mingstagram
+  DOCKER_COMPOSE: docker-compose.yml
   IMAGE_NAME: ghcr.io/${{ github.repository }}/main
   PROJECT_NAME: mingstagram
 
@@ -66,9 +67,9 @@ jobs:
           username: ${{ env.GITHUB_USER_NAME }}
           password: ${{ secrets.ACCOUNT_TOKEN }}
 
-      - name: Docker Pull & Run
+      - name: Docker Compose Run
         run: |
-          docker rmi -f ${{ env.IMAGE_NAME }}
-          docker rm -f ${{ env.DOCKER_CONTAINER_NAME }}
-          docker pull ${{ env.IMAGE_NAME }}:latest
-          docker run -p 8080:8080 -d --name ${{ env.DOCKER_CONTAINER_NAME }} ${{ env.IMAGE_NAME }}
+          docker-compose -f ${{ env.DOCKER_COMPOSE }} pull 
+          docker-compose -f ${{ env.DOCKER_COMPOSE }} --project-name=${{ env.PROJECT_NAME }} up -d
+          docker image prune -f
+          docker network prune -f
