@@ -6,10 +6,12 @@ on:
       - main
 
 env:
-  AWS_HOST: ${{ secrets.AWS_HOST }}
-  DOCKER_FILE: Dockerfile
-  DOCKER_REPO: joshuara7235/mingstagram
+  REGISTRY_NAME: ghcr.io
+  GITHUB_USER_NAME: ${{ secrets.USER_NAME }}
+  DOCKER_FILE_PATH: ./Dockerfile
   DOCKER_CONTAINER_NAME: mingstagram
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+  PROJECT_NAME: mingstagram
 
 jobs:
   build:
@@ -29,28 +31,44 @@ jobs:
     - name: Gradle Build
       run: ./gradlew clean bootJar -x test
 
-      #################### DOCKER BUILD & PUSH ########################
+        #################### GITHUB CONTAINER REGISTRY LOGIN ########################
 
-      # DOCKER_USERNAME, PASSWORD : 현재는 Joshua 계정으로 되어있음 후에 변경해야함
-      # Dockerfile, Hub 주소 변수빼기
-
-    - name: Docker Build & Push
-      run: |
-        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
-        docker build --build-arg DEPENDENCY=build/dependency -f ${{ env.DOCKER_FILE }} -t ${{ env.DOCKER_REPO }} . 
-        docker push ${{ env.DOCKER_REPO }}
-
-      ############################ CD ##############################
-
-    - name: Deployment
-      uses: appleboy/ssh-action@master
+    - name: Login to Github Container Registry
+      uses: docker/login-action@v1.10.0
       with:
-        host: ${{ env.AWS_HOST }}
-        username: ubuntu
-        key: ${{ secrets.AWS_JOSHUA_UBUNTU_PRIVATE_KEY }} # AWS 접속 키인 CER private key value 를 넣었음 (joshua cer 사용)
-        envs: GITHUB_SHA
-        script: |
-          docker rmi -f ${{ env.DOCKER_REPO }}
+        registry: ${{ env.REGISTRY_NAME }}
+        username: ${{ env.GITHUB_USER_NAME }}
+        password: ${{ secrets.ACCOUNT_TOKEN }}
+
+        #################### DOCKER BUILD AND PUSH ###############################
+
+    - name: Build Push Docker image
+      uses: docker/build-push-action@v2.6.1
+      with:
+        context: .
+        file: ${{ env.DOCKER_FILE_PATH }}
+        tags: ${{ env.IMAGE_NAME }}:latest
+        no-cache: true
+        push: true
+
+    ######################## DEPLOY ################################
+
+  deploy:
+    name: Snaps CD with Docker
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1.10.0
+        with:
+          registry: ${{ env.REGISTRY_NAME }}
+          username: ${{ env.GITHUB_USER_NAME }}
+          password: ${{ secrets.ACCOUNT_TOKEN }}
+
+      - name: Docker Pull & Run
+        run: |
+          docker rmi -f ${{ env.IMAGE_NAME }}
           docker rm -f ${{ env.DOCKER_CONTAINER_NAME }}
-          docker pull ${{ env.DOCKER_REPO }}
-          docker run -p 8081:8080 -d --name ${{ env.DOCKER_CONTAINER_NAME }} ${{ env.DOCKER_REPO }}
+          docker pull ${{ env.IMAGE_NAME }}:latest
+          docker run -p 8080:8080 -d --name ${{ env.DOCKER_CONTAINER_NAME }} ${{ env.IMAGE_NAME }}
