@@ -35,10 +35,13 @@ public class UserController {
 
     @PostMapping("/auth/joinProc")
     public String authJoinProc(User user) {
+        log.info("test");
         String rawPassword = user.getPassword();
         String encPassword = EncodeUtils.encode(rawPassword);
         user.setPassword(encPassword); //FIXME : setter -> private method
+        log.info("test2");
         userRepository.save(user); // FIXME : layer 분리
+        log.info("test3");
 
         return "redirect:/auth/login";
     }
