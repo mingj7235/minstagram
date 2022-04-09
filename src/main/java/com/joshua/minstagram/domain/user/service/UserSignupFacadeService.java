@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserSignupService {
+public class UserSignupFacadeService {
 
     private final UserService userService;
 

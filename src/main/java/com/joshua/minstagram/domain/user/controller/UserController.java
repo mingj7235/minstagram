@@ -1,11 +1,11 @@
 package com.joshua.minstagram.domain.user.controller;
 
 import com.joshua.minstagram.domain.follow.repository.FollowRepository;
+import com.joshua.minstagram.domain.follow.service.FollowFacadeService;
 import com.joshua.minstagram.domain.user.entity.User;
 import com.joshua.minstagram.domain.user.repository.UserRepository;
-import com.joshua.minstagram.domain.user.service.UserSignupService;
+import com.joshua.minstagram.domain.user.service.UserSignupFacadeService;
 import com.joshua.minstagram.global.auth.MyUserDetail;
-import com.joshua.minstagram.global.config.EncodeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserSignupService userSignupService;
+    private final UserSignupFacadeService userSignupFacadeService;
+
+    private final FollowFacadeService followFacadeService;
 
     private final UserRepository userRepository;
 
@@ -38,7 +40,7 @@ public class UserController {
 
     @PostMapping("/auth/joinProc")
     public String authJoinProc(User user) {
-        userSignupService.signup(user);
+        userSignupFacadeService.signup(user);
         return "redirect:/auth/login";
     }
 
