@@ -3,6 +3,7 @@ package com.joshua.minstagram.domain.user.controller;
 import com.joshua.minstagram.domain.follow.repository.FollowRepository;
 import com.joshua.minstagram.domain.user.entity.User;
 import com.joshua.minstagram.domain.user.repository.UserRepository;
+import com.joshua.minstagram.domain.user.service.UserSignupService;
 import com.joshua.minstagram.global.auth.MyUserDetail;
 import com.joshua.minstagram.global.config.EncodeUtils;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+
+    private final UserSignupService userSignupService;
 
     private final UserRepository userRepository;
 
@@ -35,14 +38,7 @@ public class UserController {
 
     @PostMapping("/auth/joinProc")
     public String authJoinProc(User user) {
-        log.info("test");
-        String rawPassword = user.getPassword();
-        String encPassword = EncodeUtils.encode(rawPassword);
-        user.setPassword(encPassword); //FIXME : setter -> private method
-        log.info("test2");
-        userRepository.save(user); // FIXME : layer 분리
-        log.info("test3");
-
+        userSignupService.signup(user);
         return "redirect:/auth/login";
     }
 
@@ -70,8 +66,6 @@ public class UserController {
         User principal = userDetail.getUser();
 
         int followCheck = followRepository.countByFromUserIdAndToUserId(principal.getId(), id);
-
-        log.info("followCheck : {}", followCheck);
 
         model.addAttribute("followCheck", followCheck);
 
