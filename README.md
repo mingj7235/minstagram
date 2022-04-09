@@ -17,14 +17,17 @@
 
 - AWS
 - Docker
+- Docker Compose
 
 ### [ CD / CD ]
 
 - Github Action
-- Docker hub
+- Github Runner
+- Github Container Registry
 
 ### [ 도입 예정 ]
 
-- DB sub : QueryDSL
-- Frontend : React
-- Jenkins or Github action (CI/CD)
+- QueryDSL
+- Redis
+- JWT
+- React
