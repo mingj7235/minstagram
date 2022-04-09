@@ -9,8 +9,10 @@
 <!--            <div sec:authentication="principal">username</div>-->
 <!--            <div th:text="${principalId}"></div>-->
 <!--        </div>-->
-        <a href="feed.html"> <img src="/images/logo.png" />
-        </a> <input type="text" placeholder="Search">
+        <a th:href="@{/image/feed}"> <!--TODO : 화면 전환 -->
+            <img src="/images/logo.png" />
+        </a>
+        <input type="text" placeholder="Search">
         <div class="navigation__links">
             <a th:href="@{/image/explore/{id}(id=${owner.getId()})}" class="navigation__link">
                 <i class="fa fa-compass"></i>

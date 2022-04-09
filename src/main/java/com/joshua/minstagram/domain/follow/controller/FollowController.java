@@ -92,6 +92,8 @@ public class FollowController {
             }
         } //FIXME : logic 변경
 
+        model.addAttribute("follows", follows);
+
         return "follow/follow";
     }
 }

@@ -16,15 +16,16 @@
 <main id="explore">
     <ul class="explore__users u-default-box">
 
-        <c:forEach var="follow" items="${follows}">
+        <div th:each="follow : ${follows}">
             <li class="explore__user">
                 <div class="explore__content">
                     <img src="/images/avatar.jpg" />
                     <div class="explore__info">
-                        <span class="explore__username">${follow.toUser.username}</span>
+<!--                        <span class="explore__username">${follow.toUser.username}</span>-->
+                        <span class="explore__username" th:text="${follow.toUser.username}"></span>
                     </div>
                 </div>
-                <c:if test="${principal.user.id ne follow.toUser.id}">
+                <div th:if="${owner.user.id ne follow.toUser.id}">
                     <c:choose>
                         <c:when test="${follow.followState eq true}">
                             <button onClick="follow(false, ${follow.toUser.id})" class="following_btn ">팔로잉</button>
@@ -33,10 +34,9 @@
                             <button onClick="follow(true, ${follow.toUser.id})" class="follow_btn ">팔로우</button>
                         </c:otherwise>
                     </c:choose>
-                </c:if>
+                </div>
             </li>
-        </c:forEach>
-
+        </div>
     </ul>
 </main>
 <div th:replace="./include/footer.html :: fragment-footer"></div>
