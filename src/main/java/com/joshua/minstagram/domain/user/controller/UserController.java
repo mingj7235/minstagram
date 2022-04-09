@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    private FollowRepository followRepository;
+    private final FollowRepository followRepository;
 
     @GetMapping("/auth/login")
     public String login() {
