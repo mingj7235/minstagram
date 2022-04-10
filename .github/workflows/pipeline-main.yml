@@ -55,7 +55,7 @@ jobs:
     ######################## DEPLOY ################################
 
   deploy:
-    name: Snaps CD with Docker
+    name: Mingstagram CD with Docker
     needs: build
     runs-on: self-hosted
 
