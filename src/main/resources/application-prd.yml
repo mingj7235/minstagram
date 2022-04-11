@@ -23,3 +23,11 @@ spring:
     user:
       name: test
       password: 1234
+
+jwt:
+  issuer: ${JWT_ISSUER}
+  secret: ${JWT_SECRET}
+  access:
+    timeout-of-minutes: 5
+  refresh:
+    timeout-of-minutes: 525600
