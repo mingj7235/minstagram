@@ -14,11 +14,10 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Getter
-@SuperBuilder
 @MappedSuperclass
 @NoArgsConstructor (access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-public class BaseTime {
+public abstract class BaseTime {
 
     @CreatedDate
     @Column (updatable = false)

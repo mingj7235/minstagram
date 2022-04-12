@@ -18,7 +18,6 @@ import java.util.List;
 
 @Getter
 @Setter // TODO : Setter private 으로 static 메소드 변경
-@SuperBuilder
 @NoArgsConstructor (access = AccessLevel.PROTECTED)
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @DynamicUpdate
