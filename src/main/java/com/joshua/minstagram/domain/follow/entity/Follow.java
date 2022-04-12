@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter //FIXME : setter private
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Follow extends BaseTime {

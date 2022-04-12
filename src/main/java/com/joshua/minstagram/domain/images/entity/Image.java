@@ -14,7 +14,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor (access = AccessLevel.PROTECTED)
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @Entity
