@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import javax.validation.Valid;
 
 @Getter
-@NoArgsConstructor (access = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class UserRequestDto {
 
     @Getter
-    @AllArgsConstructor (access = AccessLevel.PRIVATE)
+    @AllArgsConstructor
     @Valid
     public static class SignUp {
 

@@ -2,6 +2,7 @@ package com.joshua.minstagram.domain.user.controller;
 
 import com.joshua.minstagram.domain.follow.repository.FollowRepository;
 import com.joshua.minstagram.domain.follow.service.FollowFacadeService;
+import com.joshua.minstagram.domain.user.dto.request.UserRequestDto;
 import com.joshua.minstagram.domain.user.entity.User;
 import com.joshua.minstagram.domain.user.repository.UserRepository;
 import com.joshua.minstagram.domain.user.service.UserSignupFacadeService;
@@ -14,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @Controller
@@ -34,8 +38,11 @@ public class UserController {
     }
 
     @GetMapping("/auth/join")
-    public String authJoin() {
-        return "auth/join";
+    public ModelAndView authJoin(final @NotNull ModelAndView modelAndView) {
+
+        modelAndView.addObject("signupForm", new UserRequestDto.SignUp());
+        modelAndView.setViewName("auth/join");
+        return modelAndView;
     }
 
     @PostMapping("/auth/joinProc")
