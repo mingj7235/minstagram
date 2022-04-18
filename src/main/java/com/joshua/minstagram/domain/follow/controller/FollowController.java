@@ -70,9 +70,10 @@ public class FollowController {
                 }
             }
         } //FIXME : logic 변경
-
+        User owner = userDetail.getUser();
         model.addAttribute("followers", followers);
-        return "follow/follow";
+        model.addAttribute("owner", owner);
+        return "follow/follower";
     }
 
     @GetMapping ("/follow/{id}")
@@ -91,9 +92,9 @@ public class FollowController {
                 }
             }
         } //FIXME : logic 변경
-
+        User owner = userDetail.getUser();
         model.addAttribute("follows", follows);
-
+        model.addAttribute("owner", owner);
         return "follow/follow";
     }
 }
