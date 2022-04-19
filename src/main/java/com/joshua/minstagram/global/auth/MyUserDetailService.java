@@ -16,7 +16,6 @@ public class MyUserDetailService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-    // security /auth/loginProc Post 요청이 들어올 때 실행됨
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
@@ -25,7 +24,6 @@ public class MyUserDetailService implements UserDetailsService {
 
         MyUserDetail userDetail = null;
 
-        //Redis JWT 토큰을 여기서 하면 되지않을까?
 
         if (user != null) {
             userDetail = new MyUserDetail();
