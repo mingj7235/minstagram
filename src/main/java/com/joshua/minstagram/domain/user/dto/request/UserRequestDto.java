@@ -16,6 +16,10 @@ public class UserRequestDto {
     @Valid
     public static class SignUp {
 
+        private String name;
+
+        private String phonenum;
+
     }
 
 }
