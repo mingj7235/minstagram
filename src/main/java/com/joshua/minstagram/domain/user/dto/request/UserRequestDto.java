@@ -12,7 +12,7 @@ import javax.validation.Valid;
 public class UserRequestDto {
 
     @Getter
-    @AllArgsConstructor
+    @NoArgsConstructor
     @Valid
     public static class SignUp {
 
