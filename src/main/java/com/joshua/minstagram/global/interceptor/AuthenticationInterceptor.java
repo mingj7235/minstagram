@@ -1,22 +1,5 @@
 package com.joshua.minstagram.global.interceptor;
 
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.exceptions.TokenExpiredException;
-import com.joshua.minstagram.global.annotation.AuthRequired;
-import com.joshua.minstagram.global.config.JWTUtils;
-import com.joshua.minstagram.global.context.MemberAuthentication;
-import com.joshua.minstagram.global.context.MemberContext;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
-import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Objects;
-
 public class AuthenticationInterceptor {
 
 }

@@ -1,6 +1,49 @@
 package com.joshua.minstagram.global.context;
 
-public class MemberAuthentication {
+import com.joshua.minstagram.domain.user.entity.User;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+
+@Getter
+@Builder (access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor
+public class UserAuthentication {
+
+    private final Long id;
+
+    private final String username;
+
+    private final String name;
+
+    private final String website;
+
+    private final String bio;
+
+    private final String email;
+
+    private final String phone;
+
+    private final String gender;
+
+    private final String profileImage;
+
+    public static UserAuthentication from (final @NotNull User user) {
+        return UserAuthentication.builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .website(user.getWebsite())
+                .bio(user.getBio())
+                .email(user.getEmail())
+                .phone(user.getPhone())
+                .gender(user.getGender())
+                .profileImage(user.getProfileImage())
+                .build();
+    }
 
 }
 
