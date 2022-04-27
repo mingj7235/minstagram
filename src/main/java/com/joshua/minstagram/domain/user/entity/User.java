@@ -5,14 +5,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.joshua.minstagram.domain.images.entity.Image;
 import com.joshua.minstagram.domain.user.dto.request.UserRequestDto;
+import com.joshua.minstagram.domain.user.enums.Gender;
 import com.joshua.minstagram.global.base.BaseTime;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +43,8 @@ public class User extends BaseTime {
 
     private String phone;
 
-    private String gender;
+    @Enumerated (EnumType.STRING)
+    private Gender gender;
 
     private String profileImage; // profile photo path + photo name
 
@@ -55,6 +54,9 @@ public class User extends BaseTime {
 
     public static User toEntity (final @NotNull UserRequestDto.SignUp signUpRequest) {
         return User.builder()
+                .username(signUpRequest.getUsername())
+                .name(signUpRequest.getName())
+                .gender(signUpRequest.getGender())
                 .build();
     }
 
