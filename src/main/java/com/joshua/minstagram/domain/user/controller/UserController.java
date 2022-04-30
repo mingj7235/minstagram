@@ -6,6 +6,7 @@ import com.joshua.minstagram.domain.user.dto.request.UserRequestDto;
 import com.joshua.minstagram.domain.user.entity.User;
 import com.joshua.minstagram.domain.user.repository.UserRepository;
 import com.joshua.minstagram.domain.user.service.UserSignupFacadeService;
+import com.joshua.minstagram.domain.user.service.core.UserService;
 import com.joshua.minstagram.global.auth.MyUserDetail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,11 +24,11 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class UserController {
 
+    private final UserService userService;
+
     private final UserSignupFacadeService userSignupFacadeService;
 
     private final FollowFacadeService followFacadeService;
-
-    private final UserRepository userRepository;
 
     private final FollowRepository followRepository;
 
@@ -42,12 +41,13 @@ public class UserController {
     public String authJoin(final @NotNull Model model) {
 
         model.addAttribute(new UserRequestDto.SignUp());
+
         return "auth/join";
     }
 
     @PostMapping("/auth/joinProc")
-    public String authJoinProc(User user) {
-        userSignupFacadeService.signup(user);
+    public String authJoinProc(final @NotNull UserRequestDto.SignUp signUpRequest) {
+        userSignupFacadeService.signup(signUpRequest);
         return "redirect:/auth/login";
     }
 
@@ -55,7 +55,7 @@ public class UserController {
     public String profile(@AuthenticationPrincipal MyUserDetail userDetail,
                           @PathVariable Long id,
                           Model model) {
-        User owner = userRepository.findByUsername(userDetail.getUsername());
+        User owner = userService.findByUsername(userDetail.getUsername());
         model.addAttribute("owner", owner);
 
         /**
@@ -67,7 +67,7 @@ public class UserController {
          */
 
         //4. User 오브젝트
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found user"));
+        User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("not found user"));
 
         model.addAttribute("user", user);
 
