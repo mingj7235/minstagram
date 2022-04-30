@@ -7,6 +7,7 @@ import com.joshua.minstagram.domain.images.entity.Image;
 import com.joshua.minstagram.domain.user.dto.request.UserRequestDto;
 import com.joshua.minstagram.domain.user.enums.Gender;
 import com.joshua.minstagram.global.base.BaseTime;
+import com.joshua.minstagram.global.config.EncodeUtils;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -55,8 +56,14 @@ public class User extends BaseTime {
     public static User toEntity (final @NotNull UserRequestDto.SignUp signUpRequest) {
         return User.builder()
                 .username(signUpRequest.getUsername())
+                .password(EncodeUtils.encode(signUpRequest.getPassword()))
                 .name(signUpRequest.getName())
+                .website(signUpRequest.getWebsite())
+                .bio(signUpRequest.getBio())
+                .email(signUpRequest.getEmail())
+                .phone(signUpRequest.getPhone())
                 .gender(signUpRequest.getGender())
+                .profileImage(signUpRequest.getProfileImage())
                 .build();
     }
 

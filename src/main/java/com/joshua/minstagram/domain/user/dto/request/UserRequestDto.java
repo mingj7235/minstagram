@@ -1,8 +1,6 @@
 package com.joshua.minstagram.domain.user.dto.request;
 
 import com.joshua.minstagram.domain.user.enums.Gender;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,15 +17,21 @@ public class UserRequestDto {
 
         private String username;
 
-        private String name;
+        private String password;
 
-        private String phonenum;
+        private String name;
 
         private String website;
 
         private String bio;
 
+        private String email;
+
+        private String phone;
+
         private Gender gender;
+
+        private String profileImage;
 
     }
 
