@@ -17,11 +17,16 @@
     <div class="login__column">
         <div class="login__box">
             <img src="/images/loginLogo.png" />
-            <form action="/auth/joinProc" method="post" class="login__form">
-                <input type="email" name="email" placeholder="Email" required>
-                <input type="text" name="name" placeholder="Name" required>
-                <input type="text" name="username" placeholder="Username" required>
-                <input type="password" name="password" placeholder="Password" required>
+            <form th:action="@{/auth/joinProc}" th:object="${signUp}" method="post" class="login__form">
+                <input type="text" name="username" placeholder="Username" th:field="*{username}" required>
+                <input type="password" name="password" placeholder="Password" th:field="*{password}" required>
+                <input type="text" name="name" placeholder="Name" th:field="*{name}" required>
+                <input type="text" name="website" placeholder="website" th:field="*{website}" required>
+                <input type="text" name="bio" placeholder="bio" th:field="*{bio}" required>
+                <input type="email" name="email" placeholder="Email" th:field="*{email}" required>
+                <input type="email" name="phone" placeholder="phone" th:field="*{phone}" required>
+                <input type="email" name="gender" placeholder="gender" th:field="*{gender}" required>
+                <input type="email" name="profileImage" placeholder="profileImage" th:field="*{profileImage}" required>
                 <input type="submit" value="Sign up">
             </form>
         </div>
